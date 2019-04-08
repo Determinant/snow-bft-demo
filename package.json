@@ -1,0 +1,56 @@
+{
+  "name": "snow-bft-demo",
+  "version": "0.2.0",
+  "description": "Visual demo of the Snow protocol family",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "author": {
+    "name": "Ted Yin",
+    "email": "tederminant@gmail.com",
+    "url": "https://tedyin.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.13.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-react": "^7.12.4",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "@types/classnames": "^2.2.7",
+    "@types/color": "^3.0.0",
+    "@types/material-ui": "^0.21.6",
+    "@types/react": "^16.8.2",
+    "@types/react-dates": "^17.1.5",
+    "@types/react-dom": "^16.8.1",
+    "@types/react-router-dom": "^4.3.1",
+    "chart.js": "^2.7.3",
+    "chartjs-plugin-labels": "^1.1.0",
+    "color": "^3.1.0",
+    "lru-cache": "^5.1.1",
+    "materialcolorize": "^1.1.7",
+    "react": "^16.8.1",
+    "react-chartjs-2": "^2.7.4",
+    "react-dates": "^19.0.0",
+    "react-dom": "^16.8.1",
+    "react-material-color-picker": "^1.1.2",
+    "react-router-dom": "^4.3.1",
+    "react-slidedown": "^2.0.9",
+    "react-transition-group": "^2.6.0",
+    "typeface-roboto": "0.0.54"
+  }
+}
