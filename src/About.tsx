@@ -60,16 +60,6 @@ function About(props: AboutProps) {
             73d at tedyin dot com
             </ListItem>
             <ListItem>
-            <span className={classes.infoField}>GitHub:</span>
-            <Link href="https://github.com/Determinant/chromicle" target="_blank" rel="noopener">
-                Determinant/chromicle
-            </Link>
-            </ListItem>
-            <ListItem>
-                <span className={classes.infoField}>About Me:</span>
-                <Link href="https://www.cs.cornell.edu/~tedyin/" target="_blank" rel="noopener">
-                    https://www.cs.cornell.edu/~tedyin/
-                </Link>
             </ListItem>
             <ListItem>
                 <span className={classes.infoField}>Buy me a cup of coffee:</span>

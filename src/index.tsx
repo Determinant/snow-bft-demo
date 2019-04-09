@@ -125,7 +125,7 @@ class MainTabs extends React.Component<MainTabsProps> {
                             {console.log(location)}
                             <Route exact path="/snow" component={Snow} />
                             <Route exact path="/about" component={About} />
-                            <Route exact path="/" render={() => <Redirect to="/settings" />}/>
+                            <Route exact path="/" render={() => <Redirect to="/snow" />}/>
                             </Switch>
                             </div>
                         </CSSTransition>

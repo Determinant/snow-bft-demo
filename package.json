@@ -31,6 +31,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@material-ui/lab": "^3.0.0-alpha.30",
     "@types/classnames": "^2.2.7",
     "@types/color": "^3.0.0",
     "@types/material-ui": "^0.21.6",
