@@ -10,26 +10,40 @@ div.grid {
     transition: background-color 0.1s ease-out;
 }
 
-.gridCell > div > div {
+.gridCell div div div {
     height: 20px;
     width: 20px;
     margin: 2px;
     display: inline-block;
 }
 
-.smallGridCell > div > div {
+.gridCell  div div {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.smallGridCell div div div {
     height: 15px;
     width: 15px;
     margin: 1px;
     display: inline-block;
 }
 
-.gridRow > div {
+.smallGridCell div div {
+    height: 17px;
+    width: 17px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.gridRow div {
     height: 24px;
     text-align: center;
 }
 
-.smallGridRow > div {
+.smallGridRow div {
     height: 17px;
     text-align: center;
 }

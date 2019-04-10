@@ -278,13 +278,24 @@ class Snow extends React.Component<SnowProps> {
         });
     }
 
+    flipNode(i: number, j: number) {
+        let s = this.state.colorMatrix[i][j];
+        const n = this.config.n;
+        s.col = 1 - s.col;
+        this.setNodeState(n, i * n + j, s);
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
             <MGrid container spacing={16} style={{minWidth: 600}}>
                 <MGrid item lg={6} xs={12} className={classes.grid}>
-                    <Grid data={this.state.colorMatrix} />
+                    <Grid
+                        data={this.state.colorMatrix}
+                        onClickNode={(i: number, j: number) => this.flipNode(i, j)}
+                        onHoverNode={(i: number, j: number) => this.flipNode(i, j)}
+                    />
                     <Line data={() => {
                         let datasets = this.state.dcnts.map((dd, c) => dd.map((line, i) => {
                                 const base = getNodeColor(watchedD[i], c);
@@ -304,6 +315,11 @@ class Snow extends React.Component<SnowProps> {
                     options={{ scales: { yAxes: [{ ticks: {min: -this.state.N, max: this.state.N}}]}}}/>
                 </MGrid>
                 <MGrid item lg={4} xs={12}>
+                    <p>
+                        Try to click or move the mouse when clicked to flip the
+                        color of squares. Are you able to prevent them from
+                        going to a single color?
+                    </p>
                     <Table>
                     <TableBody>
                     <TableRow>

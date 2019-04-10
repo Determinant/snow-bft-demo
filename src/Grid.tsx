@@ -14,6 +14,8 @@ const styles = (theme: Theme): StyleRules => ({
 interface GridProps {
     classes: {
     },
+    onClickNode: (i: number, j: number) => void
+    onHoverNode: (i: number, j: number) => void
     data: {d: number[], col: number}[][]
 }
 
@@ -29,7 +31,7 @@ class Grid extends React.Component<GridProps> {
         return getNodeColor(s.d[s.col], s.col);
     }
     render() {
-        const { classes, data } = this.props;
+        const { classes, data, onClickNode, onHoverNode } = this.props;
         const { gr, gc } = data.length <= 20 ?
             { gr: 'gridRow', gc: 'gridCell' } :
             { gr: 'smallGridRow', gc: 'smallGridCell' };
@@ -40,8 +42,15 @@ class Grid extends React.Component<GridProps> {
                     <div key={i}>
                     {
                         row.map((cell, j) => (
+                            <div
+                                onClick={event => onClickNode(i, j)}
+                                onMouseOver={event => {
+                                    if (event.buttons === 1 || event.buttons === 3)
+                                        onHoverNode(i, j);
+                                }}>
                             <div key={j}
                                 style={{backgroundColor: Grid.getColor(cell)}}>
+                            </div>
                             </div>
                         ))
                     }
