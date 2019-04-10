@@ -25,7 +25,6 @@ const styles = (theme: Theme): StyleRules => ({
     bottomButtons: {
         marginTop: 10,
         textAlign: 'center',
-        minWidth: 650
     },
     slider: {
         padding: '22px 0px',
@@ -179,11 +178,11 @@ class Snow extends React.Component<SnowProps> {
         const { classes } = this.props;
 
         return (
-            <MGrid container spacing={16} style={{minWidth: 600, maxWidth: 1600}}>
+            <MGrid container spacing={16} style={{minWidth: 600}}>
                 <MGrid item lg={6} xs={12}>
                     <Grid data={this.state.colorMatrix} />
                 </MGrid>
-                <MGrid item lg={6} xs={12}>
+                <MGrid item lg={4} xs={12}>
                     <Table>
                     <TableBody>
                     <TableRow>
@@ -251,7 +250,7 @@ class Snow extends React.Component<SnowProps> {
                     </Table>
                     <div className={classes.buttonSpacer} />
                     <div className={classes.bottomButtons}>
-                    <MGrid container spacing={16}>
+                    <MGrid container item spacing={16}>
                         <MGrid item lg={4} xs={12}>
                             <Button
                                 variant="contained" color="primary"
