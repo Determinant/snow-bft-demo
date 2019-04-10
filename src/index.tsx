@@ -16,6 +16,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { theme } from './theme';
 import Snow from './Snow';
 import About from './About';
+import Logo from './Logo';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -96,7 +97,8 @@ class MainTabs extends React.Component<MainTabsProps> {
                     className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            Snow
+                            <Logo style={{width: '5em', verticalAlign: 'bottom', marginRight: '0.5em'}}/>
+                            Snow BFT Demo
                         </Typography>
                         <Tabs
                             classes={{ indicator: classes.indicator }}

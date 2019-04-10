@@ -5,44 +5,43 @@ import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 import { Theme, withStyles, StyleRules } from '@material-ui/core/styles';
 import Color from 'color';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import './Grid.css';
 
 const styles = (theme: Theme): StyleRules => ({
-    gridRow: {
-        height: 24,
-        textAlign: 'center'
-    },
-    gridCell: {
-        height: 20,
-        width: 20,
-        margin: 2,
-        display: 'inline-block'
-    }
 });
 
 interface GridProps {
     classes: {
-        gridRow: string,
-        gridCell: string
     },
     data: {d: number[], col: number}[][]
 }
 
+export function getNodeColor(d: number, col: number) {
+    const color = [orange[300], blue[300]];
+    let base = Color(color[col]).hsl().array();
+    base[2] = 80;
+    return Color.hsl(base).darken(Math.min(d / 15, 0.5)).hex();
+}
+
 class Grid extends React.Component<GridProps> {
     static getColor(s: {d: number[], col: number}) {
-        const color = [orange[300], blue[300]];
-        let {d, col} = s;
-        return Color(color[col]).darken(Math.min(d[col] / 10, 0.6)).hex();
+        return getNodeColor(s.d[s.col], s.col);
     }
     render() {
         const { classes, data } = this.props;
+        const { gr, gc } = data.length <= 20 ?
+            { gr: 'gridRow', gc: 'gridCell' } :
+            { gr: 'smallGridRow', gc: 'smallGridCell' };
         return (
-            <div style={{margin: '0 auto'}}>
+            <div className={`grid ${gr} ${gc}`}>
             {
                 data.map((row, i) => (
-                    <div key={i} className={classes.gridRow}>
+                    <div key={i}>
                     {
                         row.map((cell, j) => (
-                            <div key={j} className={classes.gridCell} style={{backgroundColor: Grid.getColor(cell)}}>
+                            <div key={j}
+                                style={{backgroundColor: Grid.getColor(cell)}}>
                             </div>
                         ))
                     }

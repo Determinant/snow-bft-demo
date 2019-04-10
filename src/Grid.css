@@ -1,0 +1,35 @@
+div.grid {
+    display: inline-block;
+}
+
+
+.grid div {
+    -webkit-transition: background-color 0.1s ease-out;
+    -moz-transition: background-color 0.1s ease-out;
+    -o-transition: background-color 0.1s ease-out;
+    transition: background-color 0.1s ease-out;
+}
+
+.gridCell > div > div {
+    height: 20px;
+    width: 20px;
+    margin: 2px;
+    display: inline-block;
+}
+
+.smallGridCell > div > div {
+    height: 15px;
+    width: 15px;
+    margin: 1px;
+    display: inline-block;
+}
+
+.gridRow > div {
+    height: 24px;
+    text-align: center;
+}
+
+.smallGridRow > div {
+    height: 17px;
+    text-align: center;
+}
