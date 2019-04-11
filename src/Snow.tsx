@@ -1,5 +1,5 @@
 import React from 'react';
-import MGrid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 import { Theme, withStyles, StyleRules } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Line } from 'react-chartjs-2';
 import Color from 'color';
-import Grid, {getNodeColor} from './Grid';
+
+import Matrix, { getNodeColor } from './Matrix';
 
 const styles = (theme: Theme): StyleRules => ({
     inputLabel: {
@@ -62,14 +63,15 @@ function getRandomInt(max: number) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+/* Code from: https://stackoverflow.com/a/11935263/544806 */
 function getRandomSubarray(arr: number[], size: number) {
     let shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
     while (i-- > min) {
-                index = Math.floor((i + 1) * Math.random());
-                temp = shuffled[index];
-                shuffled[index] = shuffled[i];
-                shuffled[i] = temp;
-            }
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+    }
     return shuffled.slice(min);
 }
 
@@ -83,7 +85,7 @@ class Snow extends React.Component<SnowProps> {
         {
             let r = [];
             for (let j = 0; j < n; j++)
-                r.push({d: [0, 0], col: getRandomInt(2)});
+                r.push({ d: [0, 0], col: getRandomInt(2) });
             d.push(r);
         }
         return d;
@@ -100,7 +102,7 @@ class Snow extends React.Component<SnowProps> {
         ticking: false,
         simulationSpeed: 100,
         dialogOpen: false,
-        dialogMsg: {title: '', message: ''},
+        dialogMsg: { title: '', message: '' },
         nError: false,
         kError: false,
         alphaError: false,
@@ -128,12 +130,12 @@ class Snow extends React.Component<SnowProps> {
         return this.state.colorMatrix[r][c];
     }
 
-    setNodeState(n: number, u: number, s: {d: number[], col: number}) {
+    setNodeState(n: number, u: number, s: { d: number[], col: number }) {
         let r = Math.floor(u / n);
         let c = u % n;
         let m = [...this.state.colorMatrix];
         m[r][c] = s;
-        this.setState({colorMatrix: m});
+        this.setState({ colorMatrix: m });
     }
 
     tick(n: number, m: number) {
@@ -196,7 +198,7 @@ class Snow extends React.Component<SnowProps> {
     }
 
     pauseTick() {
-        this.setState({ticking: false});
+        this.setState({ ticking: false });
     }
 
     startTick() {
@@ -255,7 +257,7 @@ class Snow extends React.Component<SnowProps> {
     }
 
     autoTick() {
-        this.setState({ticking: true});
+        this.setState({ ticking: true });
         setTimeout(() => {
             let active = this.tick(this.config.n, this.config.nodesPerTick);
             this.config.iter++;
@@ -291,187 +293,181 @@ class Snow extends React.Component<SnowProps> {
         const { classes } = this.props;
 
         return (
-            <MGrid container spacing={16} style={{minWidth: 600}}>
-                <MGrid item lg={6} xs={12} className={classes.grid}>
-                    <Grid
-                        data={this.state.colorMatrix}
-                        onClickNode={(i: number, j: number) => this.flipNode(i, j)}
-                        onHoverNode={(i: number, j: number) => this.flipNode(i, j)}
-                    />
-                    <div style={{position: 'relative', height: '40vh'}}>
-                    <Line data={() => {
-                        let datasets = this.state.dcnts.map((dd, c) => dd.map((line, i) => {
-                                const base = getNodeColor(watchedD[i], c);
-                                return {
-                                    data: line,
-                                    label: `${c == 0 ? 'A' : 'B'}(d-${watchedD[i]})`,
-                                    borderColor: base,
-                                    backgroundColor: Color(base).fade(0.5).rgb().string(),
-                                    borderWidth: 2
-                                };
-                            })).flat();
-                        return {
-                            datasets,
-                            labels: this.state.ticks
-                        }
-                    }}
-                    options={{
-                        scales: { yAxes: [{ ticks: {min: -this.state.N, max: this.state.N}}]},
-                        maintainAspectRatio: false
-                    }}/>
-                    </div>
-                </MGrid>
-                <MGrid item lg={4} xs={12}>
-                    <Typography variant="body1">
-                    <p>
-                        This demo shows the Snowball protocol used as the core of a peer-to-peer payment system, Avalanche, introduced in&nbsp;
-                        <Link href="https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf" target="_blank" rel="noopener">
-                            this paper
-                        </Link>
-                        &nbsp;. It visualizes the process of a binary,
-                        single-decree, probabilistic Snowball consensus that harnesses
-                        metastability to guarantee safety.
-                        Little squares represent different nodes, wherein
-                        the color of each square represents its current
-                        proposal. Darkness of the color shows the node's
-                        conviction in that proposal.  Expectedly, all nodes
-                        will collapse to the same color in the end.
-                    </p>
-                    <p>
-                        Try to click or move the mouse when clicked to flip the
-                        color of squares. Are you able to prevent them from
-                        going to a single color?
-                    </p>
-                    </Typography>
-                    <Table>
-                    <TableBody>
-                    <TableRow>
-                        <TableCell className={classes.inputLabel}>
-                        n =
-                        </TableCell>
-                        <TableCell>
-                        <TextField
-                            inputProps={{ className: classes.inputValue, maxLength: 2 } as React.CSSProperties}
-                            value={this.state.n}
-                            disabled={this.state.loaded}
-                            style={{width: 40}}
-                            error={this.state.nError}
-                            onChange={event => this.setState({n: event.target.value, nError: false})}/>
-                        <sup>2</sup>
-                        {this.state.nError &&
-                        <span className={classes.errorHint}>n must be in 2..40</span>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.inputLabel}>
-                        k =
-                        </TableCell>
-                        <TableCell>
-                        <TextField
-                            inputProps={{ className: classes.inputValue, maxLength: 4 } as React.CSSProperties}
-                            value={this.state.k}
-                            disabled={this.state.ticking}
-                            style={{width: 40}}
-                            error={this.state.kError}
-                            onChange={event => this.setState({k: event.target.value, kError: false})}/>
-                        {this.state.kError &&
-                        <span className={classes.errorHint}>k must be in 1..(n-1)</span>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.inputLabel}>
-                        alpha =
-                        </TableCell>
-                        <TableCell>
-                        <TextField
-                            inputProps={{ className: classes.inputValue, maxLength: 4 } as React.CSSProperties}
-                            value={this.state.alpha}
-                            disabled={this.state.ticking}
-                            style={{width: 40}}
-                            error={this.state.alphaError}
-                            onChange={event => this.setState({alpha: event.target.value, alphaError: false})}/>
-                        {this.state.alphaError &&
-                        <span className={classes.errorHint}>alpha must be in (k/2, k]</span>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.inputLabel}>
-                        nodesPerTick =
-                        </TableCell>
-                        <TableCell>
-                        <TextField
-                            inputProps={{ className: classes.inputValue, maxLength: 4 } as React.CSSProperties}
-                            value={this.state.nodesPerTick}
-                            disabled={this.state.ticking}
-                            style={{width: 40}}
-                            error={this.state.nodesPerTickError}
-                            onChange={event => this.setState({nodesPerTick: event.target.value, nodesPerTickError: false})}/>
-                        {this.state.nodesPerTickError &&
-                        <span className={classes.errorHint}>nodesPerTick must be in 1..n</span>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.inputLabel}>
-                        maxInactiveTicks =
-                        </TableCell>
-                        <TableCell>
-                        <TextField
-                            inputProps={{ className: classes.inputValue } as React.CSSProperties}
-                            value={this.state.maxInactiveTicks}
-                            disabled={this.state.ticking}
-                            style={{width: 50}}
-                            error={this.state.maxInactiveTicksError}
-                            onChange={event => this.setState({maxInactiveTicks: event.target.value, maxInactiveTicksError: false})}/>
-                        {this.state.maxInactiveTicksError &&
-                        <span className={classes.errorHint}>maxInactiveTicks must be in 1..1000000</span>}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                    <TableCell className={classes.inputLabel}>
-                        simulationSpeed
-                    </TableCell>
-                    <TableCell>
-                    <Slider
-                        classes={{ container: classes.slider }}
-                        value={this.state.simulationSpeed}
-                        min={1}
-                        max={1000}
-                        onChange={(_, value) => this.setState({simulationSpeed: value})} />
-                    </TableCell>
-                    </TableRow>
-                    </TableBody>
-                    </Table>
-                    <div className={classes.buttonSpacer} />
-                    <div className={classes.bottomButtons}>
-                    <MGrid container item spacing={16}>
-                        <MGrid item md={4} xs={12}>
-                            <FormGroup>
-                            <Button
-                                variant="contained" color="primary"
-                                onClick={event => this.startTick()}
-                                disabled={this.state.ticking}>Run</Button>
-                            </FormGroup>
-                        </MGrid>
-                        <MGrid item md={4} xs={12}>
-                            <FormGroup>
-                            <Button
-                                variant="contained" color="primary"
-                                onClick={event => this.pauseTick()}
-                                disabled={!this.state.ticking}>Stop</Button>
-                            </FormGroup>
-                        </MGrid>
-                        <MGrid item md={4} xs={12}>
-                            <FormGroup>
-                            <Button
-                                variant="contained" color="primary"
-                                onClick={event => this.reset()}>Reset</Button>
-                            </FormGroup>
-                        </MGrid>
-                    </MGrid>
-                    </div>
-                </MGrid>
-            </MGrid>
-        );
+          <Grid container spacing={16} style={{minWidth: 600}}>
+            <Grid item lg={6} xs={12} className={classes.grid}>
+              <Matrix
+                data={this.state.colorMatrix}
+                onClickNode={(i: number, j: number) => this.flipNode(i, j)}
+                onHoverNode={(i: number, j: number) => this.flipNode(i, j)} />
+              <div style={{position: 'relative', height: '40vh'}}>
+                <Line data={() => {
+                  let datasets = this.state.dcnts.map((dd, c) => dd.map((line, i) => {
+                      const base = getNodeColor(watchedD[i], c);
+                      return {
+                        data: line,
+                        label: `${c == 0 ? 'A' : 'B'}(d-${watchedD[i]})`,
+                        borderColor: base,
+                        backgroundColor: Color(base).fade(0.5).rgb().string(),
+                        borderWidth: 2
+                      };
+                    })).flat();
+                  return {
+                    datasets,
+                    labels: this.state.ticks
+                  }
+                }}
+                options={{
+                  scales: { yAxes: [{ ticks: { min: -this.state.N, max: this.state.N }}]},
+                  maintainAspectRatio: false
+                }} />
+              </div>
+            </Grid>
+            <Grid item lg={4} xs={12}>
+              <Typography variant="body1" paragraph>
+                This demo shows the Snowball protocol used as the core of a peer-to-peer payment system, Avalanche, introduced in&nbsp;
+                <Link href="https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf" target="_blank" rel="noopener">
+                  this paper
+                </Link>
+                &nbsp;. It visualizes the process of a binary,
+                single-decree, probabilistic Snowball consensus that harnesses
+                metastability to guarantee safety.
+                Little squares represent different nodes, wherein
+                the color of each square represents its current
+                proposal. Darkness of the color shows the node's
+                conviction in that proposal.  Expectedly, all nodes
+                will collapse to the same color in the end.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                Try to click or move the mouse when clicked to flip the
+                color of squares. Are you able to prevent them from
+                going to a single color?
+              </Typography>
+              <Table>
+              <TableBody>
+              <TableRow>
+                <TableCell className={classes.inputLabel}>
+                n =
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    inputProps={{ className: classes.inputValue, maxLength: 2 }}
+                    value={this.state.n}
+                    disabled={this.state.loaded}
+                    style={{width: 40}}
+                    error={this.state.nError}
+                    onChange={event => this.setState({ n: event.target.value, nError: false })} />
+                  <sup>2</sup>
+                  {this.state.nError && <span className={classes.errorHint}>n must be in 2..40</span>}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className={classes.inputLabel}>
+                k =
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    inputProps={{ className: classes.inputValue, maxLength: 4 }}
+                    value={this.state.k}
+                    disabled={this.state.ticking}
+                    style={{width: 40}}
+                    error={this.state.kError}
+                    onChange={event => this.setState({ k: event.target.value, kError: false })}/>
+                  {this.state.kError && <span className={classes.errorHint}>k must be in 1..(n-1)</span>}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className={classes.inputLabel}>
+                alpha =
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    inputProps={{ className: classes.inputValue, maxLength: 4 }}
+                    value={this.state.alpha}
+                    disabled={this.state.ticking}
+                    style={{width: 40}}
+                    error={this.state.alphaError}
+                    onChange={event => this.setState({ alpha: event.target.value, alphaError: false })}/>
+                  {this.state.alphaError && <span className={classes.errorHint}>alpha must be in (k/2, k]</span>}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className={classes.inputLabel}>
+                nodesPerTick =
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    inputProps={{ className: classes.inputValue, maxLength: 4 }}
+                    value={this.state.nodesPerTick}
+                    disabled={this.state.ticking}
+                    style={{width: 40}}
+                    error={this.state.nodesPerTickError}
+                    onChange={event => this.setState({ nodesPerTick: event.target.value, nodesPerTickError: false })}/>
+                  {this.state.nodesPerTickError && <span className={classes.errorHint}>nodesPerTick must be in 1..n</span>}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className={classes.inputLabel}>
+                maxInactiveTicks =
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    inputProps={{ className: classes.inputValue }}
+                    value={this.state.maxInactiveTicks}
+                    disabled={this.state.ticking}
+                    style={{width: 50}}
+                    error={this.state.maxInactiveTicksError}
+                    onChange={event => this.setState({ maxInactiveTicks: event.target.value, maxInactiveTicksError: false })}/>
+                  {this.state.maxInactiveTicksError && <span className={classes.errorHint}>maxInactiveTicks must be in 1..1000000</span>}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell className={classes.inputLabel}>
+                simulationSpeed
+              </TableCell>
+              <TableCell>
+                <Slider
+                  classes={{ container: classes.slider }}
+                  value={this.state.simulationSpeed}
+                  min={1}
+                  max={1000}
+                  onChange={(_, value) => this.setState({ simulationSpeed: value })} />
+              </TableCell>
+              </TableRow>
+              </TableBody>
+              </Table>
+              <div className={classes.buttonSpacer} />
+              <div className={classes.bottomButtons}>
+                <Grid container item spacing={16}>
+                  <Grid item md={4} xs={12}>
+                    <FormGroup>
+                      <Button
+                        variant="contained" color="primary"
+                        onClick={event => this.startTick()}
+                        disabled={this.state.ticking}>Run
+                      </Button>
+                    </FormGroup>
+                  </Grid>
+                  <Grid item md={4} xs={12}>
+                    <FormGroup>
+                      <Button
+                        variant="contained" color="primary"
+                        onClick={event => this.pauseTick()}
+                        disabled={!this.state.ticking}>Stop
+                      </Button>
+                    </FormGroup>
+                  </Grid>
+                  <Grid item md={4} xs={12}>
+                    <FormGroup>
+                      <Button
+                        variant="contained" color="primary"
+                        onClick={event => this.reset()}>Reset
+                      </Button>
+                    </FormGroup>
+                  </Grid>
+                </Grid>
+              </div>
+            </Grid>
+          </Grid>);
     }
 }
 

@@ -1,15 +1,14 @@
 import React from 'react';
 import 'typeface-roboto';
-import MGrid from '@material-ui/core/Grid';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 import Color from 'color';
-import './Grid.css';
+import './Matrix.css';
 
-interface GridProps {
+interface MatrixProps {
     onClickNode: (i: number, j: number) => void
     onHoverNode: (i: number, j: number) => void
-    data: {d: number[], col: number}[][]
+    data: { d: number[], col: number }[][]
 }
 
 export function getNodeColor(d: number, col: number) {
@@ -19,19 +18,19 @@ export function getNodeColor(d: number, col: number) {
     return Color.hsl(base).darken(Math.min(d / 15, 0.5)).hex();
 }
 
-class Grid extends React.Component<GridProps> {
-    static getColor(s: {d: number[], col: number}) {
+class Matrix extends React.Component<MatrixProps> {
+    static getColor(s: { d: number[], col: number }) {
         return getNodeColor(s.d[s.col], s.col);
     }
     mouseDown = false;
-    mousePos = {x: -1, y: -1};
+    mousePos = { x: -1, y: -1 };
     render() {
         const { data, onClickNode, onHoverNode } = this.props;
-        const { gr, gc, l } = data.length <= 20 ?
-            { gr: 'gridRow', gc: 'gridCell', l: 24 } :
-            { gr: 'smallGridRow', gc: 'smallGridCell', l: 15 };
+        const { mr, mc, l } = data.length <= 20 ?
+            { mr: 'matrixRow', mc: 'matrixCell', l: 24 } :
+            { mr: 'smallMatrixRow', mc: 'smallMatrixCell', l: 15 };
         return (
-            <div className={`grid ${gr} ${gc}`}
+            <div className={`matrix ${mr} ${mc}`}
                 onMouseDown={event => {
                     event.preventDefault();
                     this.mouseDown = true;
@@ -58,7 +57,7 @@ class Grid extends React.Component<GridProps> {
                     <div key={i}>
                     {row.map((cell, j) => (
                             <div key={j}
-                                style={{backgroundColor: Grid.getColor(cell)}}>
+                                style={{backgroundColor: Matrix.getColor(cell)}}>
                             </div>
                         ))}
                     </div>
@@ -67,4 +66,4 @@ class Grid extends React.Component<GridProps> {
     }
 }
 
-export default Grid;
+export default Matrix;

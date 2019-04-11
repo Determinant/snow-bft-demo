@@ -1,8 +1,8 @@
-div.grid {
+div.matrix {
     display: inline-block;
 }
 
-.grid div {
+.matrix div {
     -webkit-transition: background-color 0.3s ease-out;
     -moz-transition: background-color 0.3s ease-out;
     -o-transition: background-color 0.3s ease-out;
@@ -10,7 +10,7 @@ div.grid {
     user-select: none;
 }
 
-.gridCell div div {
+.matrixCell div div {
     height: 20px;
     width: 20px;
     margin: 2px;
@@ -18,7 +18,7 @@ div.grid {
     cursor: pointer;
 }
 
-.smallGridCell div div {
+.smallMatrixCell div div {
     height: 15px;
     width: 15px;
     margin: 1px;
@@ -26,12 +26,12 @@ div.grid {
     cursor: pointer;
 }
 
-.gridRow div {
+.matrixRow div {
     height: 24px;
     text-align: center;
 }
 
-.smallGridRow div {
+.smallMatrixRow div {
     height: 17px;
     text-align: center;
 }

@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import 'typeface-roboto';
 import { Theme, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
-import Tab, { TabProps } from '@material-ui/core/Tab';
-import { LinkProps } from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import Tab from '@material-ui/core/Tab';
 import { HashRouter as Router, RouteComponentProps, withRouter, Route, Link, Redirect, Switch } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
