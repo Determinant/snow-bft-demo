@@ -96,15 +96,15 @@ class MainTabs extends React.Component<MainTabsProps> {
                     position="absolute"
                     className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
-                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            <Logo style={{width: '5em', verticalAlign: 'bottom', marginRight: '0.5em'}}/>
+                        <Typography color="inherit" noWrap className={classes.title} style={{fontSize: 28, fontWeight: 300}}>
+                        <Logo style={{height: 42, verticalAlign: 'bottom', marginRight: '0.5em'}}/>
                             Snow BFT Demo
                         </Typography>
                         <Tabs
                             classes={{ indicator: classes.indicator }}
                             value={this.props.history.location.pathname}
                             onChange={this.handleChangeTab}>
-                            <Tab label="Snow" {...{component: Link, to: "/snow"} as any} value="/snow" />
+                            <Tab label="Demo" {...{component: Link, to: "/snow"} as any} value="/snow" />
                             <Tab label="About" {...{component: Link, to: "/about"} as any} value="/about" />
                         </Tabs>
                     </Toolbar>
@@ -124,7 +124,6 @@ class MainTabs extends React.Component<MainTabsProps> {
                                 }}>
                             <div className={classes.content}>
                             <Switch location={location}>
-                            {console.log(location)}
                             <Route exact path="/snow" component={Snow} />
                             <Route exact path="/about" component={About} />
                             <Route exact path="/" render={() => <Redirect to="/snow" />}/>

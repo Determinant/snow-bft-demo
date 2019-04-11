@@ -13,7 +13,6 @@ const styles = (theme: Theme): StyleRules => ({
     body: {
         margin: '0 auto',
         width: 800,
-        fontSize: 16
     },
     pre: {
         fontFamily: "Monospace"
@@ -32,6 +31,7 @@ function About(props: AboutProps) {
     const { classes } = props;
     return (
         <div className={classes.body}>
+        <Typography variant="body1">
         <article>
         The MIT License (MIT)
         <p>Copyright 2019 Maofan "Ted" Yin</p>
@@ -60,6 +60,10 @@ function About(props: AboutProps) {
             73d at tedyin dot com
             </ListItem>
             <ListItem>
+            <span className={classes.infoField}>GitHub:</span>
+            <Link href="https://github.com/Determinant/snow-bft-demo" target="_blank" rel="noopener">
+                Determinant/snow-bft-demo
+            </Link>
             </ListItem>
             <ListItem>
                 <span className={classes.infoField}>Buy me a cup of coffee:</span>
@@ -69,6 +73,7 @@ function About(props: AboutProps) {
                 </List>
             </ListItem>
         </List>
+        </Typography>
         </div>
     );
 }

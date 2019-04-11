@@ -9,9 +9,11 @@ import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/lab/Slider';
 import FormGroup from '@material-ui/core/FormGroup';
-import Grid, {getNodeColor} from './Grid';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import { Line } from 'react-chartjs-2';
 import Color from 'color';
+import Grid, {getNodeColor} from './Grid';
 
 const styles = (theme: Theme): StyleRules => ({
     inputLabel: {
@@ -154,7 +156,7 @@ class Snow extends React.Component<SnowProps> {
             let s = this.getNodeState(n, u);
             for (let c = 0; c < 2; c++)
             {
-                if (cnt[c] > this.config.alpha)
+                if (cnt[c] >= this.config.alpha)
                 {
                     s.d[c]++;
                     if (s.d[c] > s.d[s.col])
@@ -210,7 +212,7 @@ class Snow extends React.Component<SnowProps> {
             this.setState({ nError: true });
             return;
         }
-        if (!Number.isInteger(k) || k < 1 || k > N)
+        if (!Number.isInteger(k) || k < 1 || k >= N)
         {
             this.setState({ kError: true });
             return;
@@ -296,6 +298,7 @@ class Snow extends React.Component<SnowProps> {
                         onClickNode={(i: number, j: number) => this.flipNode(i, j)}
                         onHoverNode={(i: number, j: number) => this.flipNode(i, j)}
                     />
+                    <div style={{position: 'relative', height: '40vh'}}>
                     <Line data={() => {
                         let datasets = this.state.dcnts.map((dd, c) => dd.map((line, i) => {
                                 const base = getNodeColor(watchedD[i], c);
@@ -312,14 +315,34 @@ class Snow extends React.Component<SnowProps> {
                             labels: this.state.ticks
                         }
                     }}
-                    options={{ scales: { yAxes: [{ ticks: {min: -this.state.N, max: this.state.N}}]}}}/>
+                    options={{
+                        scales: { yAxes: [{ ticks: {min: -this.state.N, max: this.state.N}}]},
+                        maintainAspectRatio: false
+                    }}/>
+                    </div>
                 </MGrid>
                 <MGrid item lg={4} xs={12}>
+                    <Typography variant="body1">
+                    <p>
+                        This demo shows the Snowball protocol used as the core of a peer-to-peer payment system, Avalanche, introduced in&nbsp;
+                        <Link href="https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf" target="_blank" rel="noopener">
+                            this paper
+                        </Link>
+                        &nbsp;. It visualizes the process of a binary,
+                        single-decree, probabilistic Snowball consensus that harnesses
+                        metastability to guarantee safety.
+                        Little squares represent different nodes, wherein
+                        the color of each square represents its current
+                        proposal. Darkness of the color shows the node's
+                        conviction in that proposal.  Expectedly, all nodes
+                        will collapse to the same color in the end.
+                    </p>
                     <p>
                         Try to click or move the mouse when clicked to flip the
                         color of squares. Are you able to prevent them from
                         going to a single color?
                     </p>
+                    </Typography>
                     <Table>
                     <TableBody>
                     <TableRow>
@@ -352,7 +375,7 @@ class Snow extends React.Component<SnowProps> {
                             error={this.state.kError}
                             onChange={event => this.setState({k: event.target.value, kError: false})}/>
                         {this.state.kError &&
-                        <span className={classes.errorHint}>k must be in 1..n</span>}
+                        <span className={classes.errorHint}>k must be in 1..(n-1)</span>}
                         </TableCell>
                     </TableRow>
                     <TableRow>
@@ -421,7 +444,7 @@ class Snow extends React.Component<SnowProps> {
                     <div className={classes.buttonSpacer} />
                     <div className={classes.bottomButtons}>
                     <MGrid container item spacing={16}>
-                        <MGrid item lg={4} xs={12}>
+                        <MGrid item md={4} xs={12}>
                             <FormGroup>
                             <Button
                                 variant="contained" color="primary"
@@ -429,7 +452,7 @@ class Snow extends React.Component<SnowProps> {
                                 disabled={this.state.ticking}>Run</Button>
                             </FormGroup>
                         </MGrid>
-                        <MGrid item lg={4} xs={12}>
+                        <MGrid item md={4} xs={12}>
                             <FormGroup>
                             <Button
                                 variant="contained" color="primary"
@@ -437,7 +460,7 @@ class Snow extends React.Component<SnowProps> {
                                 disabled={!this.state.ticking}>Stop</Button>
                             </FormGroup>
                         </MGrid>
-                        <MGrid item lg={4} xs={12}>
+                        <MGrid item md={4} xs={12}>
                             <FormGroup>
                             <Button
                                 variant="contained" color="primary"
