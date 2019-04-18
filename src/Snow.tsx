@@ -325,7 +325,7 @@ class Snow extends React.Component<SnowProps> {
             <Grid item lg={4} xs={12}>
               <Typography variant="body1" paragraph>
                 This demo shows the Snowball protocol used as the core of a peer-to-peer payment system, Avalanche, introduced in&nbsp;
-                <Link href="https://avalanchelabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf" target="_blank" rel="noopener">
+                <Link href="https://avalabs.org/QmT1ry38PAmnhparPUmsUNHDEGHQusBLD6T5XJh4mUUn3v.pdf" target="_blank" rel="noopener">
                   this paper
                 </Link>
                 &nbsp;. It visualizes the process of a binary,

@@ -37,7 +37,8 @@ function About(props: AboutProps) {
                 </Typography>
 
                 <Typography variant="body1" paragraph>
-                    Copyright 2019 Maofan "Ted" Yin
+                    Copyright 2019 Ava Labs, Inc.<br/>
+                    Author: Ted Yin
                 </Typography>
 
                 <Typography variant="body1" paragraph>
@@ -68,20 +69,13 @@ function About(props: AboutProps) {
                 <List disablePadding>
                     <ListItem>
                         <span className={classes.infoField}>Email:</span>
-                        73d at tedyin dot com
+                        ted at avalabs dot org or 73d at tedyin dot com
                     </ListItem>
                     <ListItem>
                         <span className={classes.infoField}>GitHub:</span>
                         <Link href="https://github.com/Determinant/snow-bft-demo" target="_blank" rel="noopener">
                             Determinant/snow-bft-demo
                         </Link>
-                    </ListItem>
-                    <ListItem>
-                        <span className={classes.infoField}>Buy me a cup of coffee:</span>
-                        <List className={classes.pre} disablePadding>
-                            <ListItem>Ether: 0xFEeed0f0BA87824819aabfa789f41FA2dd9ad81e</ListItem>
-                            <ListItem>Bitcoin: 1CbVBB6Gv7WP4u39wsN416SJrjmvQDjggw</ListItem>
-                        </List>
                     </ListItem>
                 </List>
             </Typography>
