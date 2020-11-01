@@ -52,6 +52,7 @@
     "react-router-dom": "^4.3.1",
     "react-slidedown": "^2.0.9",
     "react-transition-group": "^2.6.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "typeface-rubik": "1.1.13"
   }
 }

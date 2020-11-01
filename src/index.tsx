@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'typeface-roboto';
+import 'typeface-rubik';
 import { Theme, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -31,6 +32,9 @@ const styles = (theme: Theme) => ({
     },
     title: {
         flexGrow: 1,
+        fontFamily: 'Rubik',
+        fontSize: 34,
+        fontWeight: 100,
         display: 'inline-block'
     },
     appBarSpacer: theme.mixins.toolbar,
@@ -95,9 +99,9 @@ class MainTabs extends React.Component<MainTabsProps> {
                     position="absolute"
                     className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
-                        <Typography color="inherit" noWrap className={classes.title} style={{fontSize: 28, fontWeight: 300}}>
-                        <Logo style={{height: 42, verticalAlign: 'bottom', marginRight: '0.5em'}}/>
-                            Snow BFT Demo
+                        <Typography color="inherit" noWrap className={classes.title}>
+                        <Logo style={{height: 60, verticalAlign: 'middle', marginRight: '0.5em'}}/>
+                        <div style={{display: 'inline-block', paddingBottom: 0, verticalAlign: 'middle'}}>Snowball BFT</div>
                         </Typography>
                         <Tabs
                             classes={{ indicator: classes.indicator }}
