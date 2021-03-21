@@ -41,14 +41,14 @@ const styles = (theme: Theme) => ({
     contentWrapper: {
         position: 'relative' as 'relative',
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        padding: theme.spacing(3),
         overflow: 'auto',
     },
     content: {
         position: 'absolute' as 'absolute',
-        left: theme.spacing.unit * 3,
-        right: theme.spacing.unit * 3,
-        paddingBottom: theme.spacing.unit * 3,
+        left: theme.spacing(3),
+        right: theme.spacing(3),
+        paddingBottom: theme.spacing(3),
     },
     indicator: {
         backgroundColor: theme.palette.primary.contrastText

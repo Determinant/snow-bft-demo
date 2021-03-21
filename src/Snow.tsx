@@ -7,7 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/lab/Slider';
+import Slider from '@material-ui/core/Slider';
 import FormGroup from '@material-ui/core/FormGroup';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -27,14 +27,14 @@ const styles = (theme: Theme): StyleRules => ({
         textAlign: 'left'
     },
     buttonSpacer: {
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
     bottomButtons: {
         marginTop: 10,
         textAlign: 'center',
     },
     slider: {
-        padding: '22px 0px',
+        paddingTop: '20px'
     },
     errorHint: {
         fontSize: 16,
@@ -293,7 +293,7 @@ class Snow extends React.Component<SnowProps> {
         const { classes } = this.props;
 
         return (
-          <Grid container spacing={16} style={{minWidth: 600}}>
+          <Grid container spacing={8} style={{minWidth: 600}}>
             <Grid item lg={6} xs={12} className={classes.grid}>
               <Matrix
                 data={this.state.colorMatrix}
@@ -342,7 +342,7 @@ class Snow extends React.Component<SnowProps> {
                 color of squares. Are you able to prevent them from
                 going to a single color?
               </Typography>
-              <Table>
+              <Table size='small'>
               <TableBody>
               <TableRow>
                 <TableCell className={classes.inputLabel}>
@@ -426,7 +426,7 @@ class Snow extends React.Component<SnowProps> {
               </TableCell>
               <TableCell>
                 <Slider
-                  classes={{ container: classes.slider }}
+                  classes={{ root: classes.slider }}
                   value={this.state.simulationSpeed}
                   min={1}
                   max={1000}
@@ -437,7 +437,7 @@ class Snow extends React.Component<SnowProps> {
               </Table>
               <div className={classes.buttonSpacer} />
               <div className={classes.bottomButtons}>
-                <Grid container item spacing={16}>
+                <Grid container item spacing={1}>
                   <Grid item md={4} xs={12}>
                     <FormGroup>
                       <Button
